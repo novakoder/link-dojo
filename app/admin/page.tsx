@@ -7,7 +7,7 @@ export default function Home() {
     <div className='ps-4 pt-5'>
       <Button variant='primary' href='/admin' className='me-3'>Admin</Button>
       <Button variant='danger' href='/'>Home</Button>
-      HOME
+      ADMIN
     </div>
   )
 }
