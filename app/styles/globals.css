@@ -1,0 +1,11 @@
+html {
+	width: 100vw;
+	height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+}
+
+.link-card {
+    width: 12rem;
+    border: 1px solid #828282;
+}
