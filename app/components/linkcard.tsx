@@ -8,17 +8,19 @@ function LinkCard({
 	title: string;
 	url: string;
 }) {
+	let cleanUrl = url.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
+
 	return (
 		<Card
-			className="bg-dark shadow m-3 link-card">
+			className="bg-dark shadow link-card text-center pt-3 mt-3 ms-3">
 			<a
 				href={url}
 				target="_blank"
 				className="text-decoration-none text-white">
-				<Card.Img variant="top" src={url + "favicon.ico"} className="p-5" />
+				<Card.Img variant="top" src={url + "favicon.ico"} />
 				<Card.Body>
-					<Card.Title className="text-center">{title}</Card.Title>
-					<Card.Text className="text-center">{url}</Card.Text>
+					<Card.Title className="fs-5">{title}</Card.Title>
+					<Card.Text className="fs-6 text-muted">{cleanUrl}</Card.Text>
 				</Card.Body>
 			</a>
 		</Card>

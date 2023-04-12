@@ -3,7 +3,7 @@ import "./styles/globals.css";
 import Footer from "./components/footer";
 
 export const metadata = {
-	title: "LinkNinja",
+	title: "LinkDojo",
 	description: "Diventa anche tu un maestro del linkjutsu",
 };
 

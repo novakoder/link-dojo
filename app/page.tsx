@@ -18,15 +18,15 @@ const cols = 8;
 
 const linkSpace = links.map((link) => {
 	return (
-		<div className="col d-flex justify-content-center">
-			<LinkCard title={link.title} url={link.url} />
+		<div className="col m-0 p-0">
+			<LinkCard title={link.title} url={link.url} key={link.title} />
 		</div>
 	);
 });
 
 export default function Home() {
 	return (
-		<div className="d-flex justify-content-center">
+		<div className="d-flex">
 			<div className="row m-0 row-cols-auto">{linkSpace}</div>
 		</div>
 	);

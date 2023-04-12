@@ -6,6 +6,9 @@ html {
 }
 
 .link-card {
-    width: 12rem;
     border: 1px solid #828282;
+}
+
+.link-card img {
+    width: 48px;
 }
