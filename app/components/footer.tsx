@@ -4,10 +4,7 @@ import { Button } from "react-bootstrap";
 function Footer() {
 	return (
 		<footer className="position-absolute bottom-0 w-100 py-3 px-4">
-			LinkDojo
-			<Button variant="primary" className="float-end">auto</Button>
-			<Button variant="primary" className="float-end me-2">6</Button>
-			<Button variant="primary" className="float-end me-2">3</Button>
+			<p className="m-0 text-muted">LinkDojo - become a master of linkjutsu</p>
 		</footer>
 	);
 }

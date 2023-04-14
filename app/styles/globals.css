@@ -10,5 +10,18 @@ html {
 }
 
 .link-card img {
-    width: 48px;
+    width: 42px;
+}
+
+.add-card-btn {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 94px;
+    right: 36px;
+}
+
+footer {
+    border-top: 1px solid #828282;
 }

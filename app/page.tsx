@@ -12,6 +12,7 @@ const links = [
 	{ title: "Twitter", url: "https://twitter.com/" },
 	{ title: "Instagram", url: "https://www.instagram.com/" },
 	{ title: "Reddit", url: "https://www.reddit.com/" },
+	{ title: "USDJPY", url: "https://it.tradingview.com/symbols/USDJPY/" },
 ];
 
 const cols = 8;
@@ -27,7 +28,10 @@ const linkSpace = links.map((link) => {
 export default function Home() {
 	return (
 		<div className="d-flex">
-			<div className="row m-0 row-cols-auto">{linkSpace}</div>
+			<div className="row m-0 row-cols-auto">
+				{linkSpace}
+				<AddLinkCard />
+			</div>
 		</div>
 	);
 }

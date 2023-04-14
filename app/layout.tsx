@@ -4,7 +4,7 @@ import Footer from "./components/footer";
 
 export const metadata = {
 	title: "LinkDojo",
-	description: "Diventa anche tu un maestro del linkjutsu",
+	description: "Become a master of linkjutsu",
 };
 
 export default function RootLayout({

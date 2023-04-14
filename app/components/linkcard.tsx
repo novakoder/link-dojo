@@ -17,7 +17,7 @@ function LinkCard({
 				href={url}
 				target="_blank"
 				className="text-decoration-none text-white">
-				<Card.Img variant="top" src={url + "favicon.ico"} />
+				<Card.Img variant="top" src={"https://" + cleanUrl + "/favicon.ico"} />
 				<Card.Body>
 					<Card.Title className="fs-5">{title}</Card.Title>
 					<Card.Text className="fs-6 text-muted">{cleanUrl}</Card.Text>
