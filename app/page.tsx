@@ -1,37 +1,61 @@
 "use client";
-import LinkCard from "./components/linkcard";
-import AddLinkCard from "./components/addlinkcard";
+import { useState, useEffect } from "react";
+import LinkCard from "./components/linkCard";
+import AddLinkCard from "./components/addLinkCard";
+import pb from "./lib/pocketbase";
 
-const links = [
-	{ title: "GitHub", url: "https://github.com/" },
-	{ title: "Google Drive", url: "https://drive.google.com/" },
-	{ title: "Stack Overflow", url: "https://stackoverflow.com/" },
-	{ title: "Google", url: "https://www.google.com/" },
-	{ title: "YouTube", url: "https://www.youtube.com/" },
-	{ title: "Facebook", url: "https://www.facebook.com/" },
-	{ title: "Twitter", url: "https://twitter.com/" },
-	{ title: "Instagram", url: "https://www.instagram.com/" },
-	{ title: "Reddit", url: "https://www.reddit.com/" },
-	{ title: "USDJPY", url: "https://it.tradingview.com/symbols/USDJPY/" },
-];
-
-const cols = 8;
-
-const linkSpace = links.map((link) => {
-	return (
-		<div className="col m-0 p-0">
-			<LinkCard title={link.title} url={link.url} key={link.title} />
-		</div>
-	);
-});
-
-export default function Home() {
-	return (
-		<div className="d-flex">
-			<div className="row m-0 row-cols-auto">
-				{linkSpace}
-				<AddLinkCard />
-			</div>
-		</div>
-	);
+interface Bookmark {
+	title: string;
+	url: string;
 }
+
+function Home({ loggedIn }: { loggedIn: boolean }) {
+	if (loggedIn) {
+		const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
+
+		useEffect(() => {
+			async function fetchBookmarks() {
+				const bookmarks = await pb.collection("bookmarks").getFullList({
+					filter: "user = '" + pb.authStore.model?.id + "'",
+				});
+
+				console.log(bookmarks);
+
+				if (bookmarks) {
+					const formattedBookmarks = bookmarks.map((bookmark) => ({
+						title: bookmark.title,
+						url: bookmark.link,
+					}));
+					setBookmarks(formattedBookmarks);
+				}
+			}
+
+			fetchBookmarks();
+		}, []);
+
+		const linkSpace = bookmarks.map((bookmark) => {
+			return (
+				<div className="col m-0 p-0" key={bookmark.title}>
+					<LinkCard title={bookmark.title} url={bookmark.url} />
+				</div>
+			);
+		});
+
+		return (
+			<div className="d-flex">
+				<div className="row m-0 row-cols-auto">
+					{linkSpace}
+					<AddLinkCard />
+				</div>
+			</div>
+		);
+	} else {
+		return (
+			<div className="d-flex">
+				<p>Not logged in</p>
+			</div>
+		);
+	}
+}
+
+export default Home;

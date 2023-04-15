@@ -1,23 +1,22 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/globals.css";
 import Footer from "./components/footer";
+import AuthWrapper from "./authWrapper";
 
 export const metadata = {
 	title: "LinkDojo",
 	description: "Become a master of linkjutsu",
 };
 
-export default function RootLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+function RootLayout() {
 	return (
 		<html lang="en">
 			<body className="bg-dark text-white">
-				{children}
+				<AuthWrapper />
 				<Footer />
 			</body>
 		</html>
 	);
 }
+
+export default RootLayout;

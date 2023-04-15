@@ -14,12 +14,10 @@ html {
 }
 
 .add-card-btn {
-    width: 72px;
-    height: 72px;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
-    position: absolute;
-    bottom: 94px;
-    right: 36px;
+    margin-bottom: 4.5rem;
 }
 
 footer {
