@@ -17,7 +17,6 @@ function LoginModal(props: LoginModalProps) {
 			const authData = await pb
 				.collection("users")
 				.authWithPassword(email, password);
-			console.log(authData);
 			setShowModal(false);
 			props.onLoginSuccess();
 		} catch (error) {
