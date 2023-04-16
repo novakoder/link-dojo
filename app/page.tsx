@@ -1,6 +1,6 @@
 "use client";
 
-import Auth from "./components/auth";
+import Footer from "./components/footer";
 import LinksView from "./components/linksView";
 import { useState } from "react";
 
@@ -9,14 +9,14 @@ function Main() {
 
 	return (
 		<div>
-			<Auth loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
 			{loggedIn ? (
-				<LinksView loggedIn={loggedIn} />
+				<LinksView />
 			) : (
-				<div className="d-flex">
-					<p>Not logged in</p>
+				<div className="vh-main">
+					<h5 className="p-3">Not logged in</h5>
 				</div>
 			)}
+			<Footer loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
 		</div>
 	);
 }

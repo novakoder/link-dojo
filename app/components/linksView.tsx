@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import LinkCard from "./linkCard";
-import AddLinkCard from "./addLinkCard";
 import pb from "../lib/pocketbase";
 
 interface Bookmark {
@@ -9,7 +8,7 @@ interface Bookmark {
 	url: string;
 }
 
-function LinksView({ loggedIn }: { loggedIn: boolean }) {
+function LinksView() {
 	const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
 
 	useEffect(() => {
@@ -39,10 +38,9 @@ function LinksView({ loggedIn }: { loggedIn: boolean }) {
 	});
 
 	return (
-		<div className="d-flex">
+		<div className="vh-main">
 			<div className="row m-0 row-cols-auto">
 				{linkSpace}
-				<AddLinkCard />
 			</div>
 		</div>
 	);

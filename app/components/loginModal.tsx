@@ -26,10 +26,10 @@ function LoginModal(props: LoginModalProps) {
 
 	return (
 		<Modal show={showModal} onHide={props.onClose}>
-			<Modal.Header closeButton>
+			<Modal.Header className="bg-dark" closeButton>
 				<Modal.Title>Login</Modal.Title>
 			</Modal.Header>
-			<Modal.Body>
+			<Modal.Body className="bg-dark">
 				<Form>
 					<Form.Group controlId="formBasicEmail">
 						<Form.Label>Email address</Form.Label>
@@ -52,11 +52,11 @@ function LoginModal(props: LoginModalProps) {
 					</Form.Group>
 				</Form>
 			</Modal.Body>
-			<Modal.Footer>
+			<Modal.Footer className="bg-dark">
 				<Button variant="secondary" onClick={props.onClose}>
 					Close
 				</Button>
-				<Button variant="primary" onClick={handleLogin}>
+				<Button onClick={handleLogin}>
 					Login
 				</Button>
 			</Modal.Footer>

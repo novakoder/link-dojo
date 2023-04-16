@@ -11,8 +11,8 @@ function AddLinkCard() {
 		<div>
 			<Button
 				onClick={() => setShowAddLinkModal(true)}
-				className="bg-primary add-card-btn position-absolute bottom-0 end-0 me-3">
-				<BiPlus size={37} />
+				className="bg-primary me-3">
+					Add new
 			</Button>
 
 			{showAddLinkModal && (

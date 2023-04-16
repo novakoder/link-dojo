@@ -1,6 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./styles/globals.css";
-import Footer from "./components/footer";
 import { ReactNode } from "react";
 
 export const metadata = {
@@ -13,7 +12,6 @@ function RootLayout({ children }: { children: ReactNode }) {
 		<html lang="en">
 			<body className="bg-dark text-white">
 				{children}
-				<Footer />
 			</body>
 		</html>
 	);

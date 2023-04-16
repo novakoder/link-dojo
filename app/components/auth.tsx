@@ -5,7 +5,13 @@ import pb from "../lib/pocketbase";
 import { Button } from "react-bootstrap";
 import LoginModal from "./loginModal";
 
-function Auth({ loggedIn, setLoggedIn }: { loggedIn: boolean; setLoggedIn: any}) {
+function Auth({
+	loggedIn,
+	setLoggedIn,
+}: {
+	loggedIn: boolean;
+	setLoggedIn: any;
+}) {
 	const [showLoginModal, setShowLoginModal] = useState(false);
 
 	useEffect(() => {
@@ -13,15 +19,17 @@ function Auth({ loggedIn, setLoggedIn }: { loggedIn: boolean; setLoggedIn: any})
 	}, []);
 
 	const handleLoginSuccess = () => {
+		setShowLoginModal(false);
 		setLoggedIn(true);
 	};
 
 	const handleLogoutSuccess = () => {
+		setShowLoginModal(false);
 		setLoggedIn(false);
 	};
 
 	return (
-		<div className="position-absolute top-0 end-0 m-3">
+		<div>
 			{loggedIn ? (
 				<Button
 					onClick={() => {

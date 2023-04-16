@@ -30,10 +30,10 @@ function AddLinkModal(props: addLinkModalProps) {
 
 	return (
 		<Modal show={showModal} onHide={props.onClose}>
-			<Modal.Header closeButton>
+			<Modal.Header className="bg-dark" closeButton>
 				<Modal.Title>Add link</Modal.Title>
 			</Modal.Header>
-			<Modal.Body>
+			<Modal.Body className="bg-dark">
 				<Form>
 					<Form.Group controlId="formBasicTitle">
 						<Form.Label>Title</Form.Label>
@@ -56,11 +56,11 @@ function AddLinkModal(props: addLinkModalProps) {
 					</Form.Group>
 				</Form>
 			</Modal.Body>
-			<Modal.Footer>
+			<Modal.Footer className="bg-dark">
 				<Button variant="secondary" onClick={props.onClose}>
 					Close
 				</Button>
-				<Button variant="primary" onClick={handleAdd}>
+				<Button onClick={handleAdd}>
 					Add
 				</Button>
 			</Modal.Footer>
