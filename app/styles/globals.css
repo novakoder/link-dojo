@@ -14,6 +14,29 @@ body {
 	width: 42px;
 }
 
+.link-card:hover {
+	background-color: #1f2327 !important;
+}
+
+.link-card .link-trash {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	display: none;
+}
+
+.link-show {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+	display: none;
+}
+
+.link-card:hover .link-trash,
+.link-card:hover .link-show {
+	display: block;
+}
+
 .add-card-btn {
 	width: 64px;
 	height: 64px;
