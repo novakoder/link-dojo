@@ -6,9 +6,15 @@ import pb from "../lib/pocketbase";
 interface Bookmark {
 	title: string;
 	url: string;
+	id: string;
 }
 
-function LinksView() {
+interface LinksViewProps {
+	linkUpdated: boolean;
+	setLinkUpdated: (value: boolean) => void;
+}
+
+function LinksView(props: LinksViewProps) {
 	const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
 
 	useEffect(() => {
@@ -21,27 +27,31 @@ function LinksView() {
 				const formattedBookmarks = bookmarks.map((bookmark) => ({
 					title: bookmark.title,
 					url: bookmark.link,
+					id: bookmark.id,
 				}));
 				setBookmarks(formattedBookmarks);
 			}
 		}
 
 		fetchBookmarks();
-	}, []);
+	}, [props.linkUpdated]);
 
 	const linkSpace = bookmarks.map((bookmark) => {
 		return (
-			<div className="col m-0 p-0" key={bookmark.title}>
-				<LinkCard title={bookmark.title} url={bookmark.url} />
+			<div key={bookmark.title}>
+				<LinkCard
+					title={bookmark.title}
+					url={bookmark.url}
+					id={bookmark.id}
+					onUpdate={() => props.setLinkUpdated(!props.linkUpdated)}
+				/>
 			</div>
 		);
 	});
 
 	return (
-		<div className="vh-main">
-			<div className="row m-0 row-cols-auto">
-				{linkSpace}
-			</div>
+		<div className="flex-grow">
+			<div className="flex flex-wrap ms-5">{linkSpace}</div>
 		</div>
 	);
 }

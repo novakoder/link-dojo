@@ -1,31 +1,25 @@
 import Image from "next/image";
-import AddLinkCard from "./addLinkCard";
+import AddLink from "./addLink";
 import Auth from "./auth";
 
-function Footer({
-	loggedIn,
-	setLoggedIn,
-}: {
+interface FooterProps {
 	loggedIn: boolean;
 	setLoggedIn: any;
-}) {
+	linkUpdated: boolean;
+	setLinkUpdated: (value: boolean) => void;
+}
+
+function Footer(props: FooterProps) {
 	return (
-		<footer className="w-100 px-3 vh-footer d-flex align-items-center">
-			<Image
-				src={"logo.svg"}
-				width={30}
-				height={30}
-				alt="Logo"
-				className="me-1"
-			/>
-			<p className="m-0 flex-grow-1">
-				LinkDojo{" "}
-				<span className="text-muted">
-					- become a master of linkjutsu
-				</span>
-			</p>
-			<AddLinkCard />
-			<Auth loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+		<footer className="footer items-center text-neutral-content self-end px-3 pb-3">
+			<div className="items-center grid-flow-col h-8 mt-3">
+				<Image src={"logo.svg"} width={32} height={32} alt="Logo" />
+				<p className="text-base"><b>LinkDojo</b> - become a master of linkjutsu</p>
+			</div>
+			<div className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
+				{props.loggedIn && <AddLink linkUpdated={props.linkUpdated} setLinkUpdated={props.setLinkUpdated} />}
+				<Auth loggedIn={props.loggedIn} setLoggedIn={props.setLoggedIn} />
+			</div>
 		</footer>
 	);
 }

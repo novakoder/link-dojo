@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import pb from "../lib/pocketbase";
-import { Button } from "react-bootstrap";
-import LoginModal from "./loginModal";
+import AuthModal from "./authModal";
 
 function Auth({
 	loggedIn,
@@ -12,41 +11,52 @@ function Auth({
 	loggedIn: boolean;
 	setLoggedIn: any;
 }) {
-	const [showLoginModal, setShowLoginModal] = useState(false);
-
 	useEffect(() => {
 		setLoggedIn(pb.authStore.isValid);
 	}, []);
 
+	const mouseClickEvents = ["mousedown", "click", "mouseup"];
+	function simulateMouseClick(element: any) {
+		mouseClickEvents.forEach((mouseEventType) =>
+			element.dispatchEvent(
+				new MouseEvent(mouseEventType, {
+					view: window,
+					bubbles: true,
+					cancelable: true,
+					buttons: 1,
+				})
+			)
+		);
+	}
+
 	const handleLoginSuccess = () => {
-		setShowLoginModal(false);
+		var element = document.querySelector("#auth-modal");
+		simulateMouseClick(element);
 		setLoggedIn(true);
 	};
 
 	const handleLogoutSuccess = () => {
-		setShowLoginModal(false);
 		setLoggedIn(false);
 	};
 
 	return (
 		<div>
 			{loggedIn ? (
-				<Button
+				<button
 					onClick={() => {
 						pb.authStore.clear();
 						handleLogoutSuccess();
-					}}>
+					}}
+					className="btn">
 					Logout
-				</Button>
+				</button>
 			) : (
-				<Button onClick={() => setShowLoginModal(true)}>Login</Button>
+				<label htmlFor="auth-modal" className="btn">
+					Login
+				</label>
 			)}
-			{showLoginModal && (
-				<LoginModal
-					onLoginSuccess={handleLoginSuccess}
-					onClose={() => setShowLoginModal(false)}
-				/>
-			)}
+			<input type="checkbox" id="auth-modal" className="modal-toggle" />
+			<AuthModal onLoginSuccess={handleLoginSuccess} />
 		</div>
 	);
 }

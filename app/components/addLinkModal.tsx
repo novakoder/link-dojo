@@ -1,16 +1,13 @@
 import { useState } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
 import pb from "../lib/pocketbase";
 
 interface addLinkModalProps {
 	onAddSuccess: () => void;
-	onClose: () => void;
 }
 
 function AddLinkModal(props: addLinkModalProps) {
 	const [title, setTitle] = useState("");
 	const [link, setLink] = useState("");
-	const [showModal, setShowModal] = useState(true);
 
 	const handleAdd = async () => {
 		try {
@@ -21,7 +18,8 @@ function AddLinkModal(props: addLinkModalProps) {
 			};
 
 			const record = await pb.collection("bookmarks").create(data);
-			setShowModal(false);
+			setTitle("");
+			setLink("");
 			props.onAddSuccess();
 		} catch (error) {
 			console.error(error);
@@ -29,42 +27,43 @@ function AddLinkModal(props: addLinkModalProps) {
 	};
 
 	return (
-		<Modal show={showModal} onHide={props.onClose}>
-			<Modal.Header className="bg-dark" closeButton>
-				<Modal.Title>Add link</Modal.Title>
-			</Modal.Header>
-			<Modal.Body className="bg-dark">
-				<Form>
-					<Form.Group controlId="formBasicTitle">
-						<Form.Label>Title</Form.Label>
-						<Form.Control
-							type="title"
-							placeholder="Enter title"
-							value={title}
-							onChange={(e) => setTitle(e.target.value)}
-						/>
-					</Form.Group>
-
-					<Form.Group controlId="formBasicLink">
-						<Form.Label>Link</Form.Label>
-						<Form.Control
-							type="link"
-							placeholder="link"
-							value={link}
-							onChange={(e) => setLink(e.target.value)}
-						/>
-					</Form.Group>
-				</Form>
-			</Modal.Body>
-			<Modal.Footer className="bg-dark">
-				<Button variant="secondary" onClick={props.onClose}>
-					Close
-				</Button>
-				<Button onClick={handleAdd}>
-					Add
-				</Button>
-			</Modal.Footer>
-		</Modal>
+		<label className="modal" htmlFor="add-link-modal">
+			<label className="modal-box" htmlFor="">
+				<h3 className="font-bold text-lg">Add link</h3>
+				<div className="form-control">
+					<label className="label">
+						<span className="label-text">Your title</span>
+					</label>
+					<input
+						type="text"
+						placeholder="Title"
+						className="input input-bordered w-full max-w-xs"
+						value={title}
+						onChange={(e) => setTitle(e.target.value)}
+					/>
+				</div>
+				<div className="form-control">
+					<label className="label">
+						<span className="label-text">Your link</span>
+					</label>
+					<input
+						type="text"
+						placeholder="Url"
+						className="input input-bordered w-full max-w-xs"
+						value={link}
+						onChange={(e) => setLink(e.target.value)}
+					/>
+				</div>
+				<div className="modal-action">
+					<label className="btn" htmlFor="add-link-modal">
+						Close
+					</label>
+					<label className="btn" onClick={handleAdd}>
+						Add
+					</label>
+				</div>
+			</label>
+		</label>
 	);
 }
 

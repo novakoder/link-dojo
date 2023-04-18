@@ -1,33 +1,69 @@
 "use client";
-import { Card } from "react-bootstrap";
-import { BiTrash } from "react-icons/bi";
-import { BiShowAlt } from "react-icons/bi";
+import { BiTrash, BiShowAlt, BiEdit } from "react-icons/bi";
+import DeleteModal from "./deleteModal";
 
-function LinkCard({ title, url }: { title: string; url: string }) {
-	let cleanUrl = url
+interface LinkCardProps {
+	title: string;
+	url: string;
+	id: string;
+	onUpdate: () => void;
+}
+
+function LinkCard(props: LinkCardProps) {
+	let cleanUrl = props.url
 		.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
 		.split("/")[0];
 
+	const mouseClickEvents = ["mousedown", "click", "mouseup"];
+	function simulateMouseClick(element: any) {
+		mouseClickEvents.forEach((mouseEventType) =>
+			element.dispatchEvent(
+				new MouseEvent(mouseEventType, {
+					view: window,
+					bubbles: true,
+					cancelable: true,
+					buttons: 1,
+				})
+			)
+		);
+	}
+
+	function handleDeleteConfirm() {
+		var element = document.querySelector("#delete-" + props.id);
+		simulateMouseClick(element);
+		props.onUpdate();
+	}
+
 	return (
-		<Card className="shadow link-card bg-dark text-center pt-3 mt-3 ms-3">
-			<BiTrash className="link-trash" />
+		<div className="card w-44 bg-base-100 shadow-xl mt-5 me-3 link-card">
 			<BiShowAlt className="link-show" />
-			<a
-				href={url}
-				target="_blank"
-				className="text-decoration-none text-white">
-				<Card.Img
-					variant="top"
-					src={"https://" + cleanUrl + "/favicon.ico"}
-				/>
-				<Card.Body>
-					<Card.Title className="fs-5">{title}</Card.Title>
-					<Card.Text className="fs-6 text-muted">
-						{cleanUrl}
-					</Card.Text>
-				</Card.Body>
+			<BiEdit className="link-edit" />
+
+			<label htmlFor={"delete-" + props.id}>
+				<BiTrash className="link-trash cursor-pointer" />
+			</label>
+			<input
+				type="checkbox"
+				id={"delete-" + props.id}
+				className="modal-toggle"
+			/>
+			<DeleteModal onConfirm={handleDeleteConfirm} id={props.id} />
+
+			<a href={props.url} target="_blank">
+				<figure className="pt-5">
+					<img
+						src={"https://" + cleanUrl + "/favicon.ico"}
+						width={42}
+						height={42}
+						alt="Logo"
+					/>
+				</figure>
+				<div className="card-body items-center text-center p-5 pt-5">
+					<h2 className="card-title">{props.title}</h2>
+					<p>{cleanUrl}</p>
+				</div>
 			</a>
-		</Card>
+		</div>
 	);
 }
 

@@ -1,28 +1,9 @@
-html,
-body {
-	width: 100vw;
-	height: 100vh;
-	max-width: 100vw;
-	max-height: 100vh;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 .link-card {
 	border: 1px solid #828282;
-}
-
-.link-card img {
-	width: 42px;
-}
-
-.link-card:hover {
-	background-color: #1f2327 !important;
-}
-
-.link-card .link-trash {
-	position: absolute;
-	right: 10px;
-	top: 10px;
-	display: none;
 }
 
 .link-show {
@@ -32,21 +13,22 @@ body {
 	display: none;
 }
 
+.link-trash {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	display: none;
+}
+
+.link-edit {
+	position: absolute;
+	right: 30px;
+	top: 10.6px;
+	display: none;
+}
+
 .link-card:hover .link-trash,
-.link-card:hover .link-show {
+.link-card:hover .link-show,
+.link-card:hover .link-edit {
 	display: block;
-}
-
-.add-card-btn {
-	width: 64px;
-	height: 64px;
-	border-radius: 50%;
-}
-
-.vh-main {
-	height: 92vh;
-}
-
-.vh-footer {
-	height: 8vh;
 }

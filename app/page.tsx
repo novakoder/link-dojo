@@ -6,18 +6,19 @@ import { useState } from "react";
 
 function Main() {
 	const [loggedIn, setLoggedIn] = useState(false);
+	const [linkUpdated, setLinkUpdated] = useState(false);
 
 	return (
-		<div>
+		<>
 			{loggedIn ? (
-				<LinksView />
+				<LinksView linkUpdated={linkUpdated} setLinkUpdated={setLinkUpdated} />
 			) : (
-				<div className="vh-main">
+				<div className="flex-grow">
 					<h5 className="p-3">Not logged in</h5>
 				</div>
 			)}
-			<Footer loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-		</div>
+			<Footer loggedIn={loggedIn} setLoggedIn={setLoggedIn} linkUpdated={linkUpdated} setLinkUpdated={setLinkUpdated} />
+		</>
 	);
 }
 
