@@ -11,8 +11,8 @@ interface FooterProps {
 
 function Footer(props: FooterProps) {
 	return (
-		<footer className="footer items-center text-neutral-content self-end px-3 pb-3">
-			<div className="items-center grid-flow-col h-8 mt-3">
+		<footer className="footer items-center text-neutral-content self-end py-8 px-5 sm:p-5">
+			<div className="items-center grid-flow-col h-8 sm:mt-3">
 				<Image src={"logo.svg"} width={32} height={32} alt="Logo" />
 				<p className="text-base"><b>LinkDojo</b> - become a master of linkjutsu</p>
 			</div>

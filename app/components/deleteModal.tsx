@@ -17,7 +17,7 @@ function DeleteModal(props: DeleteModalProps) {
 	};
 
 	return (
-		<label className="modal" htmlFor={"delete-" + props.id}>
+		<label className="modal modal-bottom sm:modal-middle" htmlFor={"delete-" + props.id}>
 			<label className="modal-box" htmlFor="">
 				<h3 className="font-bold text-lg">Delete</h3>
 				<div className="modal-action">

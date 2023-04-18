@@ -21,7 +21,7 @@ function AuthModal(props: AuthModalProps) {
 	};
 
 	return (
-		<label className="modal" htmlFor="auth-modal">
+		<label className="modal modal-bottom sm:modal-middle" htmlFor="auth-modal">
 			<label className="modal-box" htmlFor="">
 				<h3 className="font-bold text-lg">Login</h3>
 				<div className="form-control">

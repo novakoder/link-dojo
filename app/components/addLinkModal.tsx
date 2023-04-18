@@ -11,9 +11,13 @@ function AddLinkModal(props: addLinkModalProps) {
 
 	const handleAdd = async () => {
 		try {
+			// This will prepend 'http://' to link if it can't find the :// indicating protocol.
+			var linkFinal = link.indexOf("://") === -1 ? "http://" + link : link;
+			console.log(linkFinal);
+
 			const data = {
 				title: title,
-				link: link,
+				link: linkFinal,
 				user: pb.authStore.model?.id,
 			};
 
@@ -27,7 +31,7 @@ function AddLinkModal(props: addLinkModalProps) {
 	};
 
 	return (
-		<label className="modal" htmlFor="add-link-modal">
+		<label className="modal modal-bottom sm:modal-middle" htmlFor="add-link-modal">
 			<label className="modal-box" htmlFor="">
 				<h3 className="font-bold text-lg">Add link</h3>
 				<div className="form-control">
