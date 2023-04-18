@@ -35,7 +35,7 @@ function LinkCard(props: LinkCardProps) {
 	}
 
 	return (
-		<div className="card bg-base-100 shadow-xl mt-5 me-3 link-card">
+		<div className="card bg-base-100 shadow-xl mt-3 me-3 link-card">
 			<BiShowAlt className="link-show" />
 			<BiEdit className="link-edit" />
 
@@ -58,9 +58,9 @@ function LinkCard(props: LinkCardProps) {
 						alt="Logo"
 					/>
 				</figure>
-				<div className="card-body items-center text-center py-5 px-10">
-					<h2 className="card-title">{props.title}</h2>
-					<p>{cleanUrl}</p>
+				<div className="card-body items-center text-center py-5 px-8">
+					<h2 className="card-title text-lg">{props.title}</h2>
+					<p className="text-base">{cleanUrl}</p>
 				</div>
 			</a>
 		</div>
