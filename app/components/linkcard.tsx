@@ -1,6 +1,7 @@
 "use client";
 import { BiTrash, BiShowAlt, BiEdit } from "react-icons/bi";
 import DeleteModal from "./deleteModal";
+import EditModal from "./editModal";
 
 interface LinkCardProps {
 	title: string;
@@ -34,10 +35,25 @@ function LinkCard(props: LinkCardProps) {
 		props.onUpdate();
 	}
 
+	function handleEditConfirm() {
+		var element = document.querySelector("#edit-" + props.id);
+		simulateMouseClick(element);
+		props.onUpdate();
+	}
+
 	return (
 		<div className="card bg-base-100 shadow-xl mt-3 me-3 link-card">
 			<BiShowAlt className="link-show" />
-			<BiEdit className="link-edit" />
+
+			<label htmlFor={"edit-" + props.id}>
+				<BiEdit className="link-edit cursor-pointer" />
+			</label>
+			<input
+				type="checkbox"
+				id={"edit-" + props.id}
+				className="modal-toggle"
+			/>
+			<EditModal onConfirm={handleEditConfirm} id={props.id} title={props.title} url={props.url} />
 
 			<label htmlFor={"delete-" + props.id}>
 				<BiTrash className="link-trash cursor-pointer" />
