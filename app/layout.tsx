@@ -8,7 +8,7 @@ export const metadata = {
 
 function RootLayout({ children }: { children: ReactNode }) {
 	return (
-		<html lang="en">
+		<html lang="en" data-theme="dark">
 			<body className="h-screen flex flex-col">
 				{children}
 			</body>
