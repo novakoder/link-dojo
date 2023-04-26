@@ -13,7 +13,6 @@ function AddLinkModal(props: addLinkModalProps) {
 		try {
 			// This will prepend 'http://' to link if it can't find the :// indicating protocol.
 			var linkFinal = link.indexOf("://") === -1 ? "http://" + link : link;
-			console.log(linkFinal);
 
 			const data = {
 				title: title,

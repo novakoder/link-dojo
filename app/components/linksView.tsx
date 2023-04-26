@@ -14,6 +14,7 @@ interface Bookmark {
 interface Folder {
 	title: string;
 	id: string;
+	links: Bookmark[];
 }
 
 interface LinksViewProps {
@@ -28,7 +29,7 @@ function LinksView(props: LinksViewProps) {
 	useEffect(() => {
 		async function fetchBookmarks() {
 			const bookmarks = await pb.collection("bookmarks").getFullList({
-				filter: "user = '" + pb.authStore.model?.id + "' && folder = ''",
+				filter: "user = '" + pb.authStore.model?.id + "'",
 			});
 
 			if (bookmarks) {
@@ -41,29 +42,43 @@ function LinksView(props: LinksViewProps) {
 					};
 				});
 
-				setBookmarks(formattedBookmarks);
+				return formattedBookmarks;
 			}
 		}
 
-		async function fetchFolders() {
+		async function fetchFolders(bookmarks: Bookmark[]) {
 			const folders = await pb.collection("folders").getFullList({
 				filter: "user = '" + pb.authStore.model?.id + "'",
 			});
 
 			if (folders) {
 				const formattedFolders = folders.map((folder) => {
+					const folderBookmarks = bookmarks.filter(
+						(bookmark) => bookmark.folder === folder.id
+					);
+
 					return {
 						title: folder.title,
 						id: folder.id,
+						links: folderBookmarks,
 					};
 				});
 
-				setFolders(formattedFolders);
+				return formattedFolders;
 			}
 		}
 
-		fetchBookmarks();
-		fetchFolders();
+		async function fetchData() {
+			const bookmarks = await fetchBookmarks();
+			const formattedFolders = await fetchFolders(
+				bookmarks as Bookmark[]
+			);
+
+			setBookmarks(bookmarks as Bookmark[]);
+			setFolders(formattedFolders as Folder[]);
+		}
+
+		fetchData();
 	}, [props.linkUpdated]);
 
 	const folderSpace = folders.map((folder) => {
@@ -72,6 +87,7 @@ function LinksView(props: LinksViewProps) {
 				<FolderCard
 					title={folder.title}
 					id={folder.id}
+					links={folder.links}
 					onUpdate={() => props.setLinkUpdated(!props.linkUpdated)}
 				/>
 			</div>

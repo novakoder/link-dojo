@@ -10,8 +10,6 @@ function DeleteModal(props: DeleteModalProps) {
 	const handleDelete = async () => {
 		try {
 			if (props.folder) {
-				await pb.collection("folders").delete(props.id);
-
 				const bookmarks = await pb.collection("bookmarks").getFullList({
 					filter: "user = '" + pb.authStore.model?.id + "' && folder = '" + props.id + "'",
 				});
@@ -21,6 +19,8 @@ function DeleteModal(props: DeleteModalProps) {
 						await pb.collection("bookmarks").delete(bookmark.id);
 					});
 				}
+
+				await pb.collection("folders").delete(props.id);
 			} else {
 				await pb.collection("bookmarks").delete(props.id);
 			}

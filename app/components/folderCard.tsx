@@ -13,6 +13,7 @@ interface Bookmark {
 interface FolderCardProps {
 	title: string;
 	id: string;
+	links: Bookmark[];
 	onUpdate: () => void;
 }
 
@@ -69,15 +70,19 @@ function FolderCard(props: FolderCardProps) {
 				id={"delete-" + props.id}
 				className="modal-toggle"
 			/>
-			<DeleteModal onConfirm={handleDeleteConfirm} id={props.id} folder={true} />
+			<DeleteModal
+				onConfirm={handleDeleteConfirm}
+				id={props.id}
+				folder={true}
+			/>
 
 			<figure className="pt-5">
-				<BiFolder className="-m-1" style={{fontSize: "3.1rem"}} />
+				<BiFolder className="-m-1" style={{ fontSize: "3.1rem" }} />
 			</figure>
 			<div className="card-body items-center text-center py-5 px-8">
 				<h2 className="card-title text-lg">{props.title}</h2>
 				<p className="text-base">
-					0 links
+					{props.links.length} links
 				</p>
 			</div>
 		</div>
