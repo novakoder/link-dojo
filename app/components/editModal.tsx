@@ -6,6 +6,7 @@ interface EditModalProps {
 	id: string;
 	title: string;
 	url: string;
+	folder: boolean;
 }
 
 function EditModal(props: EditModalProps) {
@@ -14,12 +15,24 @@ function EditModal(props: EditModalProps) {
 
 	const handleEdit = async () => {
 		try {
-			const data = {
-				"title": title,
-				"link": link,
-			};
-			
-			const record = await pb.collection('bookmarks').update(props.id, data);
+			if (props.folder) {
+				const data = {
+					title: title,
+				};
+
+				const record = await pb
+					.collection("folders")
+					.update(props.id, data);
+			} else {
+				const data = {
+					title: title,
+					link: link,
+				};
+
+				const record = await pb
+					.collection("bookmarks")
+					.update(props.id, data);
+			}
 			props.onConfirm();
 		} catch (error) {
 			console.error(error);
@@ -27,7 +40,9 @@ function EditModal(props: EditModalProps) {
 	};
 
 	return (
-		<label className="modal modal-bottom sm:modal-middle" htmlFor={"edit-" + props.id}>
+		<label
+			className="modal modal-bottom sm:modal-middle"
+			htmlFor={"edit-" + props.id}>
 			<label className="modal-box" htmlFor="">
 				<h3 className="font-bold text-lg">Edit</h3>
 				<div className="form-control">

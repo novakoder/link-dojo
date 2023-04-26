@@ -1,20 +1,22 @@
 "use client";
-import { BiTrash, BiShowAlt, BiEdit } from "react-icons/bi";
+import { BiTrash, BiEdit, BiFolder, BiFolderOpen } from "react-icons/bi";
 import DeleteModal from "./deleteModal";
 import EditModal from "./editModal";
 
-interface LinkCardProps {
+interface Bookmark {
 	title: string;
 	url: string;
+	id: string;
+	folder: string;
+}
+
+interface FolderCardProps {
+	title: string;
 	id: string;
 	onUpdate: () => void;
 }
 
-function LinkCard(props: LinkCardProps) {
-	let cleanUrl = props.url
-		.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
-		.split("/")[0];
-
+function FolderCard(props: FolderCardProps) {
 	const mouseClickEvents = ["mousedown", "click", "mouseup"];
 	function simulateMouseClick(element: any) {
 		mouseClickEvents.forEach((mouseEventType) =>
@@ -43,8 +45,6 @@ function LinkCard(props: LinkCardProps) {
 
 	return (
 		<div className="card bg-base-100 shadow-xl mt-3 me-3 link-card">
-			<BiShowAlt className="link-show" />
-
 			<label htmlFor={"edit-" + props.id}>
 				<BiEdit className="link-edit cursor-pointer" />
 			</label>
@@ -57,8 +57,8 @@ function LinkCard(props: LinkCardProps) {
 				onConfirm={handleEditConfirm}
 				id={props.id}
 				title={props.title}
-				url={props.url}
-				folder={false}
+				url=""
+				folder={true}
 			/>
 
 			<label htmlFor={"delete-" + props.id}>
@@ -69,28 +69,19 @@ function LinkCard(props: LinkCardProps) {
 				id={"delete-" + props.id}
 				className="modal-toggle"
 			/>
-			<DeleteModal
-				onConfirm={handleDeleteConfirm}
-				id={props.id}
-				folder={false}
-			/>
+			<DeleteModal onConfirm={handleDeleteConfirm} id={props.id} folder={true} />
 
-			<a href={props.url} target="_blank">
-				<figure className="pt-5">
-					<img
-						src={"https://icon.horse/icon/" + cleanUrl}
-						width={42}
-						height={42}
-						alt="Logo"
-					/>
-				</figure>
-				<div className="card-body items-center text-center py-5 px-8">
-					<h2 className="card-title text-lg">{props.title}</h2>
-					<p className="text-base">{cleanUrl}</p>
-				</div>
-			</a>
+			<figure className="pt-5">
+				<BiFolder className="-m-1" style={{fontSize: "3.1rem"}} />
+			</figure>
+			<div className="card-body items-center text-center py-5 px-8">
+				<h2 className="card-title text-lg">{props.title}</h2>
+				<p className="text-base">
+					0 links
+				</p>
+			</div>
 		</div>
 	);
 }
 
-export default LinkCard;
+export default FolderCard;

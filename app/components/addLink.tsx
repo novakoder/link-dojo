@@ -28,10 +28,24 @@ function AddLinkCard(props: AddLinkCardProps) {
 	};
 
 	return (
-		<div>
-			<label htmlFor="add-link-modal" className="btn">
-				Add new
-			</label>
+		<>
+			<div className="dropdown dropdown-top dropdown-end">
+				<label tabIndex={0} className="btn">
+					Add new
+				</label>
+				<ul
+					tabIndex={0}
+					className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 mb-1">
+					<li>
+						<label htmlFor="add-link-modal">
+							Create link
+						</label>
+					</li>
+					<li>
+						<label>Create folder</label>
+					</li>
+				</ul>
+			</div>
 
 			<input
 				type="checkbox"
@@ -39,7 +53,7 @@ function AddLinkCard(props: AddLinkCardProps) {
 				className="modal-toggle"
 			/>
 			<AddLinkModal onAddSuccess={() => handleAddSuccess()} />
-		</div>
+		</>
 	);
 }
 

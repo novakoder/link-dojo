@@ -3,6 +3,9 @@
 import { useEffect } from "react";
 import pb from "../lib/pocketbase";
 import AuthModal from "./authModal";
+import LogoutModal from "./logoutModal";
+import { BiLogOut } from "react-icons/bi";
+import { BiLogIn } from "react-icons/bi";
 
 function Auth({
 	loggedIn,
@@ -36,28 +39,36 @@ function Auth({
 	};
 
 	const handleLogoutSuccess = () => {
+		pb.authStore.clear();
+		var element = document.querySelector("#logout-modal");
+		simulateMouseClick(element);
 		setLoggedIn(false);
 	};
 
 	return (
-		<div>
+		<>
 			{loggedIn ? (
-				<button
-					onClick={() => {
-						pb.authStore.clear();
-						handleLogoutSuccess();
-					}}
-					className="btn">
-					Logout
-				</button>
+				<label
+					htmlFor="logout-modal"
+					className="btn text-lg">
+					<div className="-ms-1">
+						<BiLogOut />
+					</div>
+				</label>
 			) : (
-				<label htmlFor="auth-modal" className="btn">
-					Login
+				<label htmlFor="auth-modal" className="btn text-lg">
+					<div className="-ms-1">
+						<BiLogIn />
+					</div>
 				</label>
 			)}
+
 			<input type="checkbox" id="auth-modal" className="modal-toggle" />
 			<AuthModal onLoginSuccess={handleLoginSuccess} />
-		</div>
+
+			<input type="checkbox" id="logout-modal" className="modal-toggle" />
+			<LogoutModal onLogoutSuccess={handleLogoutSuccess} />
+		</>
 	);
 }
 
