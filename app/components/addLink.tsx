@@ -35,7 +35,7 @@ function AddLinkCard(props: AddLinkCardProps) {
 				</label>
 				<ul
 					tabIndex={0}
-					className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 mb-1">
+					className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 mb-1 border border-gray-600">
 					<li>
 						<label htmlFor="add-link-modal">
 							Create link

@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.link-card {
-	border: 1px solid #828282;
-}
-
 .link-show {
 	position: absolute;
 	left: 10px;

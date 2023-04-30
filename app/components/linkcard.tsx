@@ -42,7 +42,7 @@ function LinkCard(props: LinkCardProps) {
 	}
 
 	return (
-		<div className="card bg-base-100 shadow-xl mt-3 me-3 link-card">
+		<div className="card bg-base-100 shadow-xl mt-3 me-3 link-card border border-gray-400">
 			<BiShowAlt className="link-show" />
 
 			<label htmlFor={"edit-" + props.id}>

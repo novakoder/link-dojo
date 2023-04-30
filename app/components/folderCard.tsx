@@ -45,7 +45,7 @@ function FolderCard(props: FolderCardProps) {
 	}
 
 	return (
-		<div className="card bg-base-100 shadow-xl mt-3 me-3 link-card">
+		<div className="card bg-base-100 shadow-xl mt-3 me-3 link-card border-gray-400 border">
 			<label htmlFor={"edit-" + props.id}>
 				<BiEdit className="link-edit cursor-pointer" />
 			</label>
@@ -77,7 +77,7 @@ function FolderCard(props: FolderCardProps) {
 			/>
 
 			<figure className="pt-5">
-				<BiFolder className="-m-1" style={{ fontSize: "3.1rem" }} />
+				<BiFolder className="-m-1" style={{ fontSize: "3.13rem" }} />
 			</figure>
 			<div className="card-body items-center text-center py-5 px-8">
 				<h2 className="card-title text-lg">{props.title}</h2>
