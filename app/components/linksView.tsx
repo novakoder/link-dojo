@@ -87,7 +87,7 @@ function LinksView(props: LinksViewProps) {
 				<FolderCard
 					title={folder.title}
 					id={folder.id}
-					links={folder.links}
+					bookmarks={folder.links}
 					onUpdate={() => props.setLinkUpdated(!props.linkUpdated)}
 				/>
 			</div>
@@ -97,11 +97,12 @@ function LinksView(props: LinksViewProps) {
 	const linkSpace = bookmarks.map((bookmark) => {
 		if (bookmark.folder === "") {
 			return (
-				<div key={bookmark.id}>
+				<div key={bookmark.id} className="mt-3 me-3">
 					<LinkCard
 						title={bookmark.title}
 						url={bookmark.url}
 						id={bookmark.id}
+						folder={bookmark.folder}
 						onUpdate={() =>
 							props.setLinkUpdated(!props.linkUpdated)
 						}
@@ -112,7 +113,7 @@ function LinksView(props: LinksViewProps) {
 	});
 
 	return (
-		<div className="flex-grow overflow-y-scroll">
+		<div className="flex-grow overflow-y-auto">
 			<div className="flex flex-wrap ms-5">
 				{folderSpace}
 				{linkSpace}

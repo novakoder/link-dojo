@@ -57,18 +57,20 @@ function EditModal(props: EditModalProps) {
 						onChange={(e) => setTitle(e.target.value)}
 					/>
 				</div>
-				<div className="form-control">
-					<label className="label">
-						<span className="label-text">Edit link</span>
-					</label>
-					<input
-						type="text"
-						placeholder="Url"
-						className="input input-bordered w-full max-w-xs"
-						value={link}
-						onChange={(e) => setLink(e.target.value)}
-					/>
-				</div>
+				{!props.folder && (
+					<div className="form-control">
+						<label className="label">
+							<span className="label-text">Edit link</span>
+						</label>
+						<input
+							type="text"
+							placeholder="Url"
+							className="input input-bordered w-full max-w-xs"
+							value={link}
+							onChange={(e) => setLink(e.target.value)}
+						/>
+					</div>
+				)}
 				<div className="modal-action">
 					<label className="btn" htmlFor={"edit-" + props.id}>
 						Cancel
