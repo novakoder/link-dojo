@@ -1,5 +1,7 @@
 "use client";
-import AddLinkModal from "./addLinkModal";
+
+import AddModal from "./addModal";
+import { simulateMouseClick } from "../lib/utils";
 
 interface AddLinkCardProps {
 	linkUpdated: boolean;
@@ -7,22 +9,14 @@ interface AddLinkCardProps {
 }
 
 function AddLinkCard(props: AddLinkCardProps) {
-	const mouseClickEvents = ["mousedown", "click", "mouseup"];
-	function simulateMouseClick(element: any) {
-		mouseClickEvents.forEach((mouseEventType) =>
-			element.dispatchEvent(
-				new MouseEvent(mouseEventType, {
-					view: window,
-					bubbles: true,
-					cancelable: true,
-					buttons: 1,
-				})
-			)
-		);
-	}
-
-	const handleAddSuccess = () => {
+	const handleLinkAddSuccess = () => {
 		var element = document.querySelector("#add-link-modal");
+		simulateMouseClick(element);
+		props.setLinkUpdated(!props.linkUpdated);
+	};
+
+	const handleFolderAddSuccess = () => {
+		var element = document.querySelector("#add-folder-modal");
 		simulateMouseClick(element);
 		props.setLinkUpdated(!props.linkUpdated);
 	};
@@ -37,12 +31,10 @@ function AddLinkCard(props: AddLinkCardProps) {
 					tabIndex={0}
 					className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 mb-1 border border-gray-600">
 					<li>
-						<label htmlFor="add-link-modal">
-							Create link
-						</label>
+						<label htmlFor="add-link-modal">Create link</label>
 					</li>
 					<li>
-						<label>Create folder</label>
+						<label htmlFor="add-folder-modal">Create folder</label>
 					</li>
 				</ul>
 			</div>
@@ -52,7 +44,20 @@ function AddLinkCard(props: AddLinkCardProps) {
 				id="add-link-modal"
 				className="modal-toggle"
 			/>
-			<AddLinkModal onAddSuccess={() => handleAddSuccess()} />
+			<AddModal
+				folder={false}
+				onAddSuccess={() => handleLinkAddSuccess()}
+			/>
+
+			<input
+				type="checkbox"
+				id="add-folder-modal"
+				className="modal-toggle"
+			/>
+			<AddModal
+				folder={true}
+				onAddSuccess={() => handleFolderAddSuccess()}
+			/>
 		</>
 	);
 }

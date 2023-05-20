@@ -1,5 +1,6 @@
 "use client";
 
+import { simulateMouseClick } from "../lib/utils";
 import { useEffect } from "react";
 import pb from "../lib/pocketbase";
 import AuthModal from "./authModal";
@@ -17,20 +18,6 @@ function Auth({
 	useEffect(() => {
 		setLoggedIn(pb.authStore.isValid);
 	}, []);
-
-	const mouseClickEvents = ["mousedown", "click", "mouseup"];
-	function simulateMouseClick(element: any) {
-		mouseClickEvents.forEach((mouseEventType) =>
-			element.dispatchEvent(
-				new MouseEvent(mouseEventType, {
-					view: window,
-					bubbles: true,
-					cancelable: true,
-					buttons: 1,
-				})
-			)
-		);
-	}
 
 	const handleLoginSuccess = () => {
 		var element = document.querySelector("#auth-modal");

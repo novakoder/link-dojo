@@ -1,21 +1,12 @@
 "use client";
-import { useState, useEffect } from "react";
+
+import { useState, useEffect, useRef } from "react";
+import autoAnimate from "@formkit/auto-animate";
 import LinkCard from "./linkCard";
 import FolderCard from "./folderCard";
 import pb from "../lib/pocketbase";
-
-interface Bookmark {
-	title: string;
-	url: string;
-	id: string;
-	folder: string;
-}
-
-interface Folder {
-	title: string;
-	id: string;
-	links: Bookmark[];
-}
+import { LinkCardProps as Bookmark } from "./linkCard";
+import { FolderCardProps as Folder } from "./folderCard";
 
 interface LinksViewProps {
 	linkUpdated: boolean;
@@ -25,6 +16,7 @@ interface LinksViewProps {
 function LinksView(props: LinksViewProps) {
 	const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
 	const [folders, setFolders] = useState<Folder[]>([]);
+	const parent = useRef(null);
 
 	useEffect(() => {
 		async function fetchBookmarks() {
@@ -60,7 +52,7 @@ function LinksView(props: LinksViewProps) {
 					return {
 						title: folder.title,
 						id: folder.id,
-						links: folderBookmarks,
+						bookmarks: folderBookmarks,
 					};
 				});
 
@@ -81,13 +73,17 @@ function LinksView(props: LinksViewProps) {
 		fetchData();
 	}, [props.linkUpdated]);
 
+	useEffect(() => {
+		parent.current && autoAnimate(parent.current);
+	}, [parent]);
+
 	const folderSpace = folders.map((folder) => {
 		return (
 			<div key={folder.id}>
 				<FolderCard
 					title={folder.title}
 					id={folder.id}
-					bookmarks={folder.links}
+					bookmarks={folder.bookmarks}
 					onUpdate={() => props.setLinkUpdated(!props.linkUpdated)}
 				/>
 			</div>
@@ -114,7 +110,7 @@ function LinksView(props: LinksViewProps) {
 
 	return (
 		<div className="flex-grow overflow-y-auto">
-			<div className="flex flex-wrap ms-5">
+			<div className="flex flex-wrap ms-5" ref={parent}>
 				{folderSpace}
 				{linkSpace}
 			</div>

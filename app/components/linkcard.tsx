@@ -1,9 +1,11 @@
 "use client";
+
+import { simulateMouseClick } from "../lib/utils";
 import { BiTrash, BiShowAlt, BiEdit } from "react-icons/bi";
 import DeleteModal from "./deleteModal";
 import EditModal from "./editModal";
 
-interface LinkCardProps {
+export interface LinkCardProps {
 	title: string;
 	url: string;
 	id: string;
@@ -15,20 +17,6 @@ function LinkCard(props: LinkCardProps) {
 	let cleanUrl = props.url
 		.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
 		.split("/")[0];
-
-	const mouseClickEvents = ["mousedown", "click", "mouseup"];
-	function simulateMouseClick(element: any) {
-		mouseClickEvents.forEach((mouseEventType) =>
-			element.dispatchEvent(
-				new MouseEvent(mouseEventType, {
-					view: window,
-					bubbles: true,
-					cancelable: true,
-					buttons: 1,
-				})
-			)
-		);
-	}
 
 	function handleDeleteConfirm() {
 		var element = document.querySelector("#delete-" + props.id);
