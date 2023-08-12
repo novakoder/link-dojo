@@ -1,46 +1,46 @@
-import { useState } from "react";
-import pb from "../lib/pocketbase";
+import { useState } from "react"
+import pb from "../lib/pocketbase"
 
 interface addModalProps {
-	onAddSuccess: () => void;
-	folder: boolean;
+	onAddSuccess: () => void
+	folder: boolean
 }
 
 function AddModal(props: addModalProps) {
-	const { folder } = props;
-	const [title, setTitle] = useState("");
-	const [link, setLink] = useState("");
+	const { folder } = props
+	const [title, setTitle] = useState("")
+	const [link, setLink] = useState("")
 
 	const handleAdd = async () => {
 		try {
 			if (folder) {
 				const data = {
 					title: title,
-					user: pb.authStore.model?.id,
-				};
+					user: pb.authStore.model?.id
+				}
 
-				const record = await pb.collection("folders").create(data);
+				const record = await pb.collection("folders").create(data)
 			} else {
 				// This will prepend 'http://' to link if it can't find the :// indicating protocol.
 				var linkFinal =
-					link.indexOf("://") === -1 ? "http://" + link : link;
+					link.indexOf("://") === -1 ? "http://" + link : link
 
 				const data = {
 					title: title,
 					link: linkFinal,
-					user: pb.authStore.model?.id,
-				};
+					user: pb.authStore.model?.id
+				}
 
-				const record = await pb.collection("bookmarks").create(data);
+				const record = await pb.collection("bookmarks").create(data)
 			}
 
-			setTitle("");
-			setLink("");
-			props.onAddSuccess();
+			setTitle("")
+			setLink("")
+			props.onAddSuccess()
 		} catch (error) {
-			console.error(error);
+			console.error(error)
 		}
-	};
+	}
 
 	return (
 		<label
@@ -92,7 +92,7 @@ function AddModal(props: addModalProps) {
 				</div>
 			</label>
 		</label>
-	);
+	)
 }
 
-export default AddModal;
+export default AddModal

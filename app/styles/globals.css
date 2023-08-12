@@ -28,3 +28,8 @@
 .link-card:hover .link-edit {
 	display: block;
 }
+
+.basic-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(180px, 2fr));
+}

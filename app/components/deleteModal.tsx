@@ -1,9 +1,9 @@
-import pb from "../lib/pocketbase";
+import pb from "../lib/pocketbase"
 
 interface DeleteModalProps {
-	onConfirm: () => void;
-	id: string;
-	folder: boolean;
+	onConfirm: () => void
+	id: string
+	folder: boolean
 }
 
 function DeleteModal(props: DeleteModalProps) {
@@ -11,24 +11,29 @@ function DeleteModal(props: DeleteModalProps) {
 		try {
 			if (props.folder) {
 				const bookmarks = await pb.collection("bookmarks").getFullList({
-					filter: "user = '" + pb.authStore.model?.id + "' && folder = '" + props.id + "'",
-				});
+					filter:
+						"user = '" +
+						pb.authStore.model?.id +
+						"' && folder = '" +
+						props.id +
+						"'"
+				})
 
 				if (bookmarks) {
 					bookmarks.forEach(async (bookmark) => {
-						await pb.collection("bookmarks").delete(bookmark.id);
-					});
+						await pb.collection("bookmarks").delete(bookmark.id)
+					})
 				}
 
-				await pb.collection("folders").delete(props.id);
+				await pb.collection("folders").delete(props.id)
 			} else {
-				await pb.collection("bookmarks").delete(props.id);
+				await pb.collection("bookmarks").delete(props.id)
 			}
-			props.onConfirm();
+			props.onConfirm()
 		} catch (error) {
-			console.error(error);
+			console.error(error)
 		}
-	};
+	}
 
 	return (
 		<label
@@ -46,7 +51,7 @@ function DeleteModal(props: DeleteModalProps) {
 				</div>
 			</label>
 		</label>
-	);
+	)
 }
 
-export default DeleteModal;
+export default DeleteModal

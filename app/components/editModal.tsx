@@ -1,43 +1,43 @@
-import pb from "../lib/pocketbase";
-import { useState } from "react";
+import pb from "../lib/pocketbase"
+import { useState } from "react"
 
 interface EditModalProps {
-	onConfirm: () => void;
-	id: string;
-	title: string;
-	url: string;
-	folder: boolean;
+	onConfirm: () => void
+	id: string
+	title: string
+	url: string
+	folder: boolean
 }
 
 function EditModal(props: EditModalProps) {
-	const [title, setTitle] = useState(props.title);
-	const [link, setLink] = useState(props.url);
+	const [title, setTitle] = useState(props.title)
+	const [link, setLink] = useState(props.url)
 
 	const handleEdit = async () => {
 		try {
 			if (props.folder) {
 				const data = {
-					title: title,
-				};
+					title: title
+				}
 
 				const record = await pb
 					.collection("folders")
-					.update(props.id, data);
+					.update(props.id, data)
 			} else {
 				const data = {
 					title: title,
-					link: link,
-				};
+					link: link
+				}
 
 				const record = await pb
 					.collection("bookmarks")
-					.update(props.id, data);
+					.update(props.id, data)
 			}
-			props.onConfirm();
+			props.onConfirm()
 		} catch (error) {
-			console.error(error);
+			console.error(error)
 		}
-	};
+	}
 
 	return (
 		<label
@@ -81,7 +81,7 @@ function EditModal(props: EditModalProps) {
 				</div>
 			</label>
 		</label>
-	);
+	)
 }
 
-export default EditModal;
+export default EditModal
